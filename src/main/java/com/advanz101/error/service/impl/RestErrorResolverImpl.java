@@ -8,6 +8,7 @@ import com.advanz101.error.domain.impl.CustomRestErrorDomainImpl;
 import com.advanz101.error.domain.impl.RestErrorDomainImpl;
 import com.advanz101.error.exception.ApplicationException;
 import com.advanz101.error.exception.BadRequestException;
+import com.advanz101.error.exception.BusinessException;
 import com.advanz101.error.exception.CustomExceptionWarning;
 import com.advanz101.error.exception.InternalServerException;
 import com.advanz101.error.exception.ResourceNotFoundException;
@@ -16,6 +17,8 @@ import com.advanz101.error.exception.TooManyRequestException;
 import com.advanz101.error.exception.UnauthenticatedException;
 import com.advanz101.error.exception.UnauthorizedException;
 import com.advanz101.error.service.RestErrorResolver;
+import com.advanz101.response.Metadata;
+import com.advanz101.response.ValidationErrorDto;
 
 /**
  * A {@code RestErrorResolver} resolves an exception and produces a
@@ -27,6 +30,8 @@ import com.advanz101.error.service.RestErrorResolver;
  */
 public class RestErrorResolverImpl implements RestErrorResolver {
 
+	public RestErrorResolverImpl(){
+	}
 	/*
 	 * (non-Javadoc)
 	 * @see com.cga.api.error.service.RestErrorResolver#resolveBadRequestError(com.cga.api.error.exception.BadRequestException)
@@ -93,6 +98,19 @@ public class RestErrorResolverImpl implements RestErrorResolver {
 
 	/*
 	 * (non-Javadoc)
+	 * @see com.cga.api.error.service.RestErrorResolver#resolveInternalServerExceptionRequest(com.cga.api.error.exception.BusinessException)
+	 */
+	@Override
+	public RestErrorDomainImpl resolveBusinessExceptionRequest(BusinessException businessException,String systemMessage) {
+		Metadata metadata = new Metadata();
+		metadata.setHttpStatus(businessException.getStatusCode());
+		return new RestErrorDomainImpl(businessException.getStatusCode().toString(),businessException.getStatusCode().toString()
+				,businessException.getMessage(),systemMessage,metadata);
+
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see com.cga.api.error.service.RestErrorResolver#resolveCustomExceptionWarningRequest(com.cga.api.error.exception.CustomWarningException)
 	 */
 	@Override
@@ -113,6 +131,13 @@ public class RestErrorResolverImpl implements RestErrorResolver {
 		return new RestErrorDomainImpl(restError.getHttpStatusCode(),ex.getApplicationCode()
 													,restError.getUserMessage(),ex.getMessage(),ex.getMetadata());
 	}
+	
+	private RestErrorDomainImpl populateRestErrorObject(RestErrorsEnum restError,
+			ValidationErrorDto ex) {
+		return new RestErrorDomainImpl(restError.getHttpStatusCode(),null
+				,restError.getUserMessage(),null,ex.getFieldErrors(),new Metadata());
+	}
+
 
 	/**
 	 *
@@ -122,6 +147,25 @@ public class RestErrorResolverImpl implements RestErrorResolver {
 	private CustomRestErrorDomainImpl populateCustomRestErrorObject(CustomExceptionWarning customException) {
 		return new CustomRestErrorDomainImpl("", customException.getApplicationCode(), "", ""
 						, customException.getMetadata(), customException.getWarningMessage(), customException.getData());
+	}
+	
+	
+//	@Override
+//	public RestErrorDomainImpl resolveMethodArgumentNotValidExceptionRequest(ValidationErrorDto processFieldErrors,
+//			String systemMessage) {
+//		//Metadata metadata = new Metadata();
+//		//metadata.setHttpStatus(businessException.getStatusCode().toString());
+//		return populateRestErrorObject(RestErrorsEnum.BAD_REQUEST,
+//				processFieldErrors);
+//
+////		return new RestErrorDomainImpl(businessException.getStatusCode().toString(),businessException.getStatusCode().toString()
+////				,businessException.getMessage(),systemMessage,metadata);
+//	}
+	@Override
+	public RestErrorDomainImpl resolveMethodArgumentNotValidExceptionRequest(ApplicationException applicationException,
+			String systemMessage) {
+		return new RestErrorDomainImpl(RestErrorsEnum.INTERNAL_SERVER_ERROR.getHttpStatusCode(),applicationException.getApplicationCode()
+				,RestErrorsEnum.INTERNAL_SERVER_ERROR.getUserMessage(),systemMessage,applicationException.getErrors(), applicationException.getMetadata());
 	}
 
 

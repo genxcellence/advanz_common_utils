@@ -1,10 +1,13 @@
 package com.advanz101.error.exception;
 
+import java.util.List;
+
 import com.advanz101.response.Metadata;
 
 /**
  *
  * @author 
+ * @param <T>
  *
  */
 public class ApplicationException extends RuntimeException {
@@ -16,6 +19,7 @@ public class ApplicationException extends RuntimeException {
 
 	private final String applicationCode;
 	private final transient Metadata metadata;
+	private final List errors ;
 
 	/**
 	 *
@@ -26,6 +30,14 @@ public class ApplicationException extends RuntimeException {
 		super();
 		this.applicationCode = applicationCode;
 		this.metadata = metadata;
+		this.errors = null;
+	}
+
+	public ApplicationException(String applicationCode, Metadata metadata, List errors) {
+		super();
+		this.applicationCode = applicationCode;
+		this.metadata = metadata;
+		this.errors = errors;
 	}
 
 	public String getApplicationCode() {
@@ -36,5 +48,7 @@ public class ApplicationException extends RuntimeException {
 		return metadata;
 	}
 
-
+	public List getErrors() {
+		return errors;
+	}
 }

@@ -1,12 +1,18 @@
 package com.advanz101.error.domain;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * 
- * @author 
+ * @author
  *
  */
 public class SystemErrorMessage {
 
+	@JsonProperty(value = "message")
 	private final String message;
+	
+	@JsonProperty(value = "error_code")
 	private final String errorCode;
 
 	/**

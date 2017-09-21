@@ -52,7 +52,7 @@ public class RestErrorConverterImpl implements RestErrorConverter {
 				,restErrorDomain.getApplicationCode());
 		UserErrorMessage userMessageError = new UserErrorMessage(restErrorDomain.getHttpStatusCode()
 				, restErrorDomain.getUserMessage());
-		return new ApiErrorMessage(systemMessageError,userMessageError);
+		return new ApiErrorMessage(systemMessageError,userMessageError,restErrorDomain.getErrors());
 	}
 
 

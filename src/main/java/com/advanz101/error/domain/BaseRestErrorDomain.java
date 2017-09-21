@@ -3,6 +3,9 @@
  */
 package com.advanz101.error.domain;
 
+import java.util.List;
+
+import com.advanz101.error.exception.RestErrorsEnum;
 import com.advanz101.response.Metadata;
 
 /**
@@ -16,7 +19,7 @@ public class BaseRestErrorDomain {
 	private final String userMessage;
 	private final String systemMessage;
 	private final Metadata metadata;
-
+	private final List<?> errors;
 	/**
 	 *
 	 * @param httpStatusCode
@@ -28,11 +31,17 @@ public class BaseRestErrorDomain {
 	public BaseRestErrorDomain(String httpStatusCode, String applicationCode, String userMessage, String systemMessage,
 			Metadata metadata) {
 		super();
+		if(metadata == null) {
+			metadata = new Metadata();
+			metadata.setHttpStatus(Integer.valueOf(RestErrorsEnum.INTERNAL_SERVER_ERROR.getHttpStatusCode()));
+		}
+
 		this.httpStatusCode = httpStatusCode;
 		this.applicationCode = applicationCode;
 		this.userMessage = userMessage;
 		this.systemMessage = systemMessage;
 		this.metadata = metadata;
+		this.errors = null;
 	}
 
 	/**
@@ -54,6 +63,23 @@ public class BaseRestErrorDomain {
 		this(null,applicationCode,null,systemMessage,null);
 	}
 
+
+	public BaseRestErrorDomain(String httpStatusCode, String applicationCode, String userMessage, String systemMessage,
+			List errors, Metadata metadata) {
+		super();
+		if(metadata == null) {
+			metadata = new Metadata();
+			metadata.setHttpStatus(Integer.valueOf(RestErrorsEnum.INTERNAL_SERVER_ERROR.getHttpStatusCode()));
+		}
+
+		this.httpStatusCode = httpStatusCode;
+		this.applicationCode = applicationCode;
+		this.userMessage = userMessage;
+		this.systemMessage = systemMessage;
+		System.out.println("---------------------------- Errror ------------"+ errors);
+		this.errors = errors;
+		this.metadata = metadata;
+	}
 
 	/**
 	 * @return the httpStatusCode
@@ -86,6 +112,10 @@ public class BaseRestErrorDomain {
 
 	public Metadata getMetadata() {
 		return metadata;
+	}
+
+	public List<?> getErrors() {
+		return errors;
 	}
 
 }

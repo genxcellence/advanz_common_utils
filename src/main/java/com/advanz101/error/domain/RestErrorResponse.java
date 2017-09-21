@@ -1,5 +1,7 @@
 package com.advanz101.error.domain;
 
+import java.util.List;
+
 import com.advanz101.response.Metadata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class RestErrorResponse {
 
+	@JsonProperty(value="metadata")
 	private final Metadata metadata;
+
 	@JsonProperty(value="data")
 	private Object[] data = {};
+
 	@JsonProperty(value="error")
 	private final ApiErrorMessage apiErrorMessage;
-
 
 	/**
 	 *
@@ -27,11 +31,14 @@ public class RestErrorResponse {
 		super();
 		this.apiErrorMessage = apiErrorMessage;
 		this.metadata = metadata;
+	//	this.errors = errors;
 		if(data != null) {
 			this.data = data.getData();
 		} 
 	}
 
+
+	
 	public ApiErrorMessage getApiErrorMessage() {
 		return apiErrorMessage;
 	}
@@ -43,8 +50,4 @@ public class RestErrorResponse {
 	public Object getData() {
 		return data;
 	}
-
-
-
-
 }

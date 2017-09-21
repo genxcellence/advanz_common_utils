@@ -5,6 +5,8 @@ package com.advanz101.response;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author 
  *
@@ -13,9 +15,29 @@ public class Metadata implements Serializable{
 
 	private String version;
 	private String status;
-	private String HTTP_status_code;
-	private String result_count;
+	@JsonProperty(value="http_status")
+	private Integer httpStatus;
+	@JsonProperty(value="result_count")
+	private Integer resultCount;
 	
+	@JsonProperty(value="message")
+	private String message;
+
+	
+	public Metadata() {
+	}
+
+	public Metadata(String version, Integer httpStatus, Integer resultCount) {
+		this(version, httpStatus, resultCount, null);
+	}
+	
+	public Metadata(String version, Integer httpStatus, Integer resultCount, String message) {
+		this.version = version;
+		this.httpStatus = httpStatus;
+		this.resultCount = resultCount;
+		this.message=message;
+	}
+
 	/**
 	 * @return the version
 	 */
@@ -41,27 +63,37 @@ public class Metadata implements Serializable{
 		this.status = status;
 	}
 	/**
-	 * @return the hTTP_status_code
+	 * @return the httpStatus
 	 */
-	public String getHTTP_status_code() {
-		return HTTP_status_code;
+	
+	public Integer getHttpStatus() {
+		return httpStatus;
 	}
 	/**
-	 * @param hTTP_status_code the hTTP_status_code to set
+	 * @param httpStatus the httpStatus to set
 	 */
-	public void setHTTP_status_code(String hTTP_status_code) {
-		HTTP_status_code = hTTP_status_code;
+	public void setHttpStatus(Integer httpStatus) {
+		this.httpStatus = httpStatus;
 	}
 	/**
 	 * @return the resultCount
 	 */
-	public String getResultCount() {
-		return result_count;
+	public Integer getResultCount() {
+		return resultCount;
 	}
 	/**
 	 * @param resultCount the resultCount to set
 	 */
-	public void setResultCount(String resultCount) {
-		this.result_count = resultCount;
+	public void setResultCount(Integer resultCount) {
+		this.resultCount = resultCount;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

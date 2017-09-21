@@ -1,4 +1,7 @@
 package com.advanz101.error.domain;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * 
  * @author 
@@ -6,7 +9,10 @@ package com.advanz101.error.domain;
  */
 public class UserErrorMessage {
 	
+	@JsonProperty(value="http_status")
 	private final String httpStatus;
+	
+	@JsonProperty(value="user_message")
 	private final String userMessage;
 	
 	/**
