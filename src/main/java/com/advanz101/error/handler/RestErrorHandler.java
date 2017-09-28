@@ -26,6 +26,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.advanz101.error.domain.impl.CustomRestErrorDomainImpl;
@@ -147,7 +148,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
 		
 		RestErrorDomainImpl restErrorDomainImpl = restErrorResolver.resolveInternalServerExceptionRequest(internalServerException,systemMessage);
 		return handleExceptionInternal(internalServerException, RestErrorConverterImpl.restErrorConvertor(restErrorDomainImpl),
-        		getHeaders(), HttpStatus.OK, request);
+        		getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
 
 	/**
@@ -161,7 +162,6 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
 	businessExceptionRequestHandler
 	(BusinessException businessException, WebRequest req
 		) {
-		//LOGGER.error(internalServerException.getMessage(), internalServerException);
 		RestErrorDomainImpl restErrorDomainImpl = restErrorResolver.resolveBusinessExceptionRequest(businessException,null);
 		return handleExceptionInternal(businessException, RestErrorConverterImpl.restErrorConvertor(restErrorDomainImpl),
        		getHeaders(), HttpStatus.OK, req);
@@ -206,18 +206,8 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
 		return internalServerExceptionRequestHandler(new InternalServerException("",null), request,e.toString());
 	}
 
-	
-	
-	
-	
-	
-	
 	@ExceptionHandler(ConstraintViolationException.class)
-   // @ResponseBody
-   // @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handle(ConstraintViolationException ex
-//    		,
-//			HttpHeaders headers, HttpStatus status, WebRequest request
 			) {
 		Set<ConstraintViolation<?>> fieldErrors = ex.getConstraintViolations();
 		return handleExceptionInternal(ex, processFieldErrors(fieldErrors), null,  HttpStatus.OK, null);
@@ -228,7 +218,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
 
         for (ConstraintViolation<?> fieldError: fieldErrors) {
             String localizedErrorMessage = resolveLocalizedErrorMessage(fieldError);
-            logger.debug("Adding error message: "+localizedErrorMessage+" to field: "+fieldError.getMessage());
+           // logger.debug("Adding error message: "+localizedErrorMessage+" to field: "+fieldError.getMessage());
             dto.addFieldError(((PathImpl)fieldError.getPropertyPath()).getLeafNode().getName(), localizedErrorMessage);
         }
 
@@ -246,15 +236,9 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-		logger.error("400 Status Code", ex);
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
 		
-//		RestErrorDomainImpl restErrorDomainImpl = restErrorResolver.resolveMethodArgumentNotValidExceptionRequest(processFieldErrors(fieldErrors),null);
-//
-//		return handleExceptionInternal(ex, restErrorDomainImpl, headers,  HttpStatus.OK, request);
-		
-//		return internalServerExceptionRequestHandler(new ApplicationException("",null,processFieldErrors(fieldErrors).getFieldErrors()), request,null);
 		ApplicationException appException = new ApplicationException("",null,processFieldErrors(fieldErrors).getFieldErrors());
 		RestErrorDomainImpl restErrorDomainImpl = restErrorResolver.resolveMethodArgumentNotValidExceptionRequest(appException,"");
 		return handleExceptionInternal(appException, RestErrorConverterImpl.restErrorConvertor(restErrorDomainImpl),
@@ -268,7 +252,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
 
         for (FieldError fieldError: fieldErrors) {
             String localizedErrorMessage = resolveLocalizedErrorMessage(fieldError);
-            logger.debug("Adding error message: "+localizedErrorMessage+" to field: "+fieldError.getField());
+           // logger.debug("Adding error message: "+localizedErrorMessage+" to field: "+fieldError.getField());
             dto.addFieldError(fieldError.getField(), localizedErrorMessage);
         }
 
@@ -294,11 +278,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
         }
         return localizedErrorMessage;
     }
-    
-    
-    
 
-    
 	/**
 	 *
 	 * @return

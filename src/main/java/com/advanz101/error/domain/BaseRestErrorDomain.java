@@ -76,7 +76,7 @@ public class BaseRestErrorDomain {
 		this.applicationCode = applicationCode;
 		this.userMessage = userMessage;
 		this.systemMessage = systemMessage;
-		System.out.println("---------------------------- Errror ------------"+ errors);
+
 		this.errors = errors;
 		this.metadata = metadata;
 	}

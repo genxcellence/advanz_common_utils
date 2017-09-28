@@ -30,8 +30,6 @@ import com.advanz101.response.ValidationErrorDto;
  */
 public class RestErrorResolverImpl implements RestErrorResolver {
 
-	public RestErrorResolverImpl(){
-	}
 	/*
 	 * (non-Javadoc)
 	 * @see com.cga.api.error.service.RestErrorResolver#resolveBadRequestError(com.cga.api.error.exception.BadRequestException)
@@ -98,7 +96,7 @@ public class RestErrorResolverImpl implements RestErrorResolver {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.cga.api.error.service.RestErrorResolver#resolveInternalServerExceptionRequest(com.cga.api.error.exception.BusinessException)
+	 * 
 	 */
 	@Override
 	public RestErrorDomainImpl resolveBusinessExceptionRequest(BusinessException businessException,String systemMessage) {
@@ -150,17 +148,6 @@ public class RestErrorResolverImpl implements RestErrorResolver {
 	}
 	
 	
-//	@Override
-//	public RestErrorDomainImpl resolveMethodArgumentNotValidExceptionRequest(ValidationErrorDto processFieldErrors,
-//			String systemMessage) {
-//		//Metadata metadata = new Metadata();
-//		//metadata.setHttpStatus(businessException.getStatusCode().toString());
-//		return populateRestErrorObject(RestErrorsEnum.BAD_REQUEST,
-//				processFieldErrors);
-//
-////		return new RestErrorDomainImpl(businessException.getStatusCode().toString(),businessException.getStatusCode().toString()
-////				,businessException.getMessage(),systemMessage,metadata);
-//	}
 	@Override
 	public RestErrorDomainImpl resolveMethodArgumentNotValidExceptionRequest(ApplicationException applicationException,
 			String systemMessage) {

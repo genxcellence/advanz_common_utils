@@ -16,6 +16,14 @@ public class ResponseApiDTO<T> implements Serializable{
 	@JsonProperty(value="error")
 	private Object[] error = {};
 
+	
+	public ResponseApiDTO(Metadata metadata, List<T> result, Object[] error) {
+		super();
+		this.metadata = metadata;
+		this.result = result;
+		this.error = error;
+	}
+	
 	public Metadata getMetadata() {
 		return metadata;
 	}

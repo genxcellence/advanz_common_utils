@@ -31,14 +31,11 @@ public class RestErrorResponse {
 		super();
 		this.apiErrorMessage = apiErrorMessage;
 		this.metadata = metadata;
-	//	this.errors = errors;
 		if(data != null) {
 			this.data = data.getData();
 		} 
 	}
 
-
-	
 	public ApiErrorMessage getApiErrorMessage() {
 		return apiErrorMessage;
 	}

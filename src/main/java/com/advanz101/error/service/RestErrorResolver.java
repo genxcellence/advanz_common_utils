@@ -84,8 +84,5 @@ public interface RestErrorResolver {
 	 * @param methodArgumentNotValidException
 	 * @return
 	 */
-//	RestErrorDomainImpl resolveMethodArgumentNotValidExceptionRequest(ValidationErrorDto processFieldErrors,
-//			String systemMessage);
-
 	RestErrorDomainImpl resolveMethodArgumentNotValidExceptionRequest(ApplicationException applicationException, String systemMessage);
 }
