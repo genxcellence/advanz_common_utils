@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PDF Template Service Sample Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Retirement Planalyzer">
+    <meta name="author" content="American Funds">
+    <meta name="template-hash" content="f3142bbb0a1696d5caa932ecab0fc530">
+    <link rel="stylesheet" href="../static/fonts.css"/>
+    <link rel="stylesheet" href="../static/css/priceit.css"/>
+</head>
+<body>
+<div style="position:relative;width:100%;height:112px;">
+	<img src="../static/img/logo.png" height="120" width="120"/>
+	<div class="date" >
+	<span style="position: absolute; left:617px;top:60px;padding-top:10px;" >May 20, 2020</span></div>
+</div>
+
+<div id="cover">
+	<div id="container">
+	    <div id="absolute">
+	    	<div class="pdfHeading" style="background:url('../static/img/backgroundHeading.png'); ">
+	        	<h4>Preliminary Retirement Plan Fee Quote</h4>
+	        	<h2 th:text="${priceIt.clientName}" style="font-weight:600;">clientName</h2>
+	        </div>
+	    <div class="coverfooter">
+	        <div class="section"style="bottom:0px;position: absolute;">
+	               
+	            <table width="100%"  class="contact-info">
+	                 <tr >
+	                    <td width="40%" valign="top" style="font-weight:600;">
+	                        Investments are not FDIC-insured, nor are <br>
+	                        they deposits of or guaranteed by a bank or <br>
+	                        any other entity, so they may lose value.
+	                        
+	                    </td>
+	                     <td width="50%" valign="top">&nbsp;</td>
+	                </tr>
+	            </table>
+	        </div>
+	        </div>
+	    </div>
+	</div>
+</div>
+	        
+</body>
+</html>

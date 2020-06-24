@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PDF Template Service Sample Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Retirement Planalyzer">
+    <meta name="author" content="American Funds">
+    <meta name="template-hash" content="f3142bbb0a1696d5caa932ecab0fc530">
+    <link rel="stylesheet" href="../static/fonts.css"/>
+    <link rel="stylesheet" href="../static/css/priceit.css"/>
+</head>
+<body>
+<div id="wrapper">
+<div class="section secPPTPA">
+	            
+	            <div width="100%" class="pageHeader">
+	                 <div class="contact-info">
+	                    <h3> Preliminary Retirement Plan Fee Quote</h3>
+	                     <div class="font-bold" style="font-weight:800;"> Client Information </div>
+	                    <div><span class="font-bold">Plan Sponsor Name:</span>  <span th:text="${priceIt.clientName}">clientName</span></div>
+	                    <div> <span class="font-bold">Total Plan Assets: </span> <span th:text="${priceIt.planAssets}">planAssets</span></div>
+	                       <div><span class="font-bold">Estimated Annual Contributions:</span> <span th:text="${priceIt.estimatedAnnContributions}">estimatedAnnContributions</span></div>
+	                       <div> <span class="font-bold">Number of Participants: </span><span th:text="${priceIt.numParticipants}">numParticipants</span></div>
+	                
+	                </div>
+	                &nbsp;<br>
+	                 <span Class="font-bold" > PlanPremier®-TPA</span>
+	            </div>
+	                  
+	            &nbsp;<br>
+	            
+	            <table class="pptpaTable" width="100%">
+	            <tr  width="100%" >
+	            	<th class="font-bold" width="25%"> <span class="font-bold"> Retirement Plan Share Class</span></th>
+	            	<td  width="10%" class="font-bold" th:each="priceitresult : ${priceitresultlist}">
+	            		<span class="font-bold"  th:text="${priceitresult.shareClassType}">shareClassType</span>
+	            	</td>
+	            </tr>
+	            <tr  width="100%"  class="bgColorBlue" >
+	            	<th class="font-bold" width="25%"> <span class="font-bold"> Annual Recordkeeping Fee</span><sup>4</sup>  </th>
+	            	<td  colspan="6" >&nbsp;</td>
+	            </tr>
+	            <tr  width="100%"  >
+	            	<th width="20%"> Gross Fee </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >$<span th:text="${priceitresult.annualFee}">annualFee</span></td>
+	            </tr>
+	           
+	              <tr  width="100%"  >
+	            	<th width="20%">Plan Credit  — As a % of Assets<sup>5,6</sup>  </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" ><span th:text="${priceitresult.planCreditPercent}">planCreditPercent</span>%</td>
+	            </tr>
+	            
+	              <tr  width="100%"  >
+	            	<th width="20%">— Dollar Amount </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >($<span th:text="${priceitresult.planCredit}">planCredit</span>)</td>
+	            </tr>
+	            
+	              <tr  width="100%"  >
+	            	<th width="20%"> Net Fee </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >$<span th:text="${priceitresult.netCredit}">netCredit</span></td>
+	            </tr>
+	             <tr  width="100%"  class="bgColorBlue">
+	            	<th class="font-bold">  <span class="font-bold"> Annual Investment Cost</span> </th>
+	            	<td colspan="6">&nbsp;</td>
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> Average Expense Ratio <sup>7</sup> </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" ><span th:text="${priceitresult.investAvgExpRatio}">investAvgExpRatio</span>%</td>
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> Dollar Amount </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >$<span th:text="${priceitresult.investDollarCost}">investDollarCost</span></td>
+	            </tr>
+	             <tr  width="100%"  class="bgColorBlue">
+	            	<th class="font-bold">  <span class="font-bold"> Annual TPA Fee</span><sup>8</sup>  </th>
+	            	<td colspan="6">&nbsp;</td>
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> &nbsp; </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >$<span th:text="${priceitresult.annualTPAFee}">annualTPAFee</span></td>
+	            </tr>
+	               <tr  width="100%"  class="bgColorBlue">
+	               <th colspan = "7" class="font-bold">  <span class="font-bold">Annual Advisor Fee (Fee-based share classes) </span><sup>9</sup> </th>
+	            	
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> As a % of Assets </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >
+	            		<span th:if="${priceitresult.adviserFeePercent == 0}" >NA</span>
+	            		<span th:unless="${priceitresult.adviserFeePercent == 0}" >adviserFeePercent %</span>
+	            	</td>
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> Dollar Amount  </th>
+	            	
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >
+	            		<span th:if="${priceitresult.adviserFeeDollar == 0}" >NA</span>
+	            		<span th:unless="${priceitresult.adviserFeeDollar == 0}">$ adviserFeeDollar</span>
+	            	</td>
+	            </tr>
+	            <tr  width="100%"  class="bgColorBlue">
+	            	<th class="font-bold">  <span class="font-bold">Wilshire Fiduciary Services </span></th>
+	            	<td colspan="6">&nbsp;</td>
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> As a % of Assets</th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >
+	            		<span th:if="${priceitresult.wilShireFeePercent == 0}" >NA</span>
+	            		<span th:unless="${priceitresult.wilShireFeePercent== 0}">wilShireFeePercent %</span>
+	            	</td>
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> Dollar Amount </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >
+	            		<span th:if="${priceitresult.wilShireFeeDollar == 0}" >NA</span>
+	            		<span th:unless="${priceitresult.wilShireFeeDollar == 0}">wilShireFeeDollar</span>
+	            	</td>
+	            </tr>
+	             <tr  width="100%"  class="bgColorBlue">
+	            	<th class="font-bold">  <span class="font-bold"> Total Annual Costs </span><sup>10</sup> </th>
+	            	<td colspan="6">&nbsp;</td>
+	            </tr>
+	              <tr  width="100%"  >
+	            	<th width="20%"> As a % of Assets </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" ><span class="font-bold" th:text="${priceitresult.planCostPct}">planCostPct</span>%</td>
+	            </tr>
+	            
+	              <tr  width="100%" >
+	            	<th width="20%"> Dollar Amount</th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >$<span class="font-bold" th:text="${priceitresult.planCostDollar}">planCostDollar</span></td>
+	            </tr>
+	            <tr> <td  colspan="7" class="bottom_Border" >&nbsp; </td></tr>
+	            
+	              <tr  width="100%"  >
+	            	<th width="20%">  <span class="font-bold"> For Reference : </span></th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" ><span class="font-bold" th:text="${priceitresult.shareClassType}">shareClassType</span></td>
+	            </tr>
+	             <tr  width="100%"  class="bgColorGray">
+	            	<th class="font-bold"> <span class="font-bold">One-Time Fee </span></th>
+	            	<td colspan="6">&nbsp;</td>
+	            </tr>
+	            
+	              <tr  width="100%"  >
+	            	<th width="20%"> &nbsp; </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >
+	            		<span th:if="${priceitresult.oneTimeFee == 0}" >NA</span>
+	            		<span th:unless="${priceitresult.oneTimeFee ==  0}">oneTimeFee %</span>
+	            </td>
+	            </tr>
+	            <tr  width="100%"  class="bgColorGray">
+	            	<th class="font-bold" colspan="7"> <span class="font-bold"> Annual Advisor Compensation (Applies to commissionable share classes, included in expense ratios) </span><sup>11</sup>  </th>
+	            	
+	            </tr>
+	            
+	             <tr  width="100%"  >
+	            	<th width="20%"> Share-Class Rate<sup>12</sup> </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" ><span th:text="${priceitresult.dealerCompPct}">dealerCompPct</span>%</td>
+	            </tr>
+	             <tr  width="100%"  >
+	            	<th width="20%"> &nbsp;  </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >$<span th:text="${priceitresult.dealerCompDollar}">dealerCompDollar</span></td>
+	            </tr>
+	             <tr  width="100%"  >
+	            	<th width="20%">Adjusted Fee-Based Rate<sup>13</sup> </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" ><span th:text="${priceitresult.feeBasedCompPct}">feeBasedCompPct</span>%</td>
+	            </tr>
+	             <tr  width="100%"  >
+	            	<th width="20%">  &nbsp; </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >$<span th:text="${priceitresult.feeBasedCompDollar}">feeBasedCompDollar</span></td>
+	            </tr>
+	             <tr  width="100%"  >
+	            	<th width="20%" rowspan="2"> Incremental Plan Credit (Included in plan credit above)<sup>14,15</sup>  </th>
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >
+	            		<span th:if="${priceitresult.creditAmountPct == 0}" >NA</span>
+	            		<span th:unless="${priceitresult.creditAmountPct == 0}">$ creditAmountPct</span></td>
+	            </tr>
+	             <tr  width="100%"  >
+	            
+	            	<td width="10%"  class=""  th:each="priceitresult : ${priceitresultlist}" >
+	            		<span th:if="${priceitresult.creditAmountDollar == 0}" >NA</span>
+	            		<span th:unless="${priceitresult.creditAmountDollar == 0}">$ creditAmountDollar</span></td>
+	            </tr>
+	            
+	            
+	            
+	            </table>
+	            
+	        
+	            
+	        </div>
+	</div>
+	        
+	        
+</body>
+</html>
+      
+	            
+	            </table>
+	            
+	        
+	            
+	        </div>
+	        &nbsp;<br><br>
+	        <div style="clear: both;"></div>
+	       
+	
+	        
+	        
+</body>
+</html>
